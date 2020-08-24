@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
     font-family: Helvetica;
     color: #424748;
@@ -35,7 +35,7 @@ body>nav {
 body>main {
     grid-area: main;
     display: flex;
-    */ flex-direction: column;
+    flex-direction: column;
     justify-content: right;
     align-items: center;
     background-color: #E8ECEB;
@@ -54,7 +54,7 @@ nav>a {
     border-radius: 5px;
 }
 
-*/ nav>a:hover {
+nav>a:hover {
     color: white;
     background-color: #424748;
 }
@@ -141,4 +141,4 @@ h1 {
 
 h2 {
     text-align: center;
-}
+} */
