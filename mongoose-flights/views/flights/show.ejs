@@ -21,54 +21,68 @@
         <div>
             <%= flight.stillAvailable ? 'Yes' : 'No' %>
         </div>
+        <div>Tickets:</div>
+        <ul>
+            <%- flight.tickets.map(t => 
+              `<li>${t.seat} <small>${t.price}</small></li>`
+            %>
+        </ul>
     </section>
+    <form id="add-ticket-to-flight" action="/flights/<%= flight._id %>/tickets" method="POST">
+        <select name="ticketId">
+          <%- tickets.map(t => 
+            `<option value="${t._id}">${t.seat}</option>`
+          ).join('') %>
+        </select>
+        <button type="submit">Add to Tickets</button>
+    </form>
 
-    <br/>
+    <br><br>
+    <h2>Destinations</h2>
+    <form id="add-destinations-form" method="POST" action="/flights/<%= flight._id %>/destinations">
+        <label>Airport:</label>
+        <select name="airport">
+<option value="AUS">AUS</option>
+<option value="DFW">DFW</option>
+<option value="DEN">DEN</option>
+<option value="LAX">LAX</option>
+<option value="SAN">SAN</option>
+</select>
+        <label>Arrivals:</label>
+        <input type="datetime-local" name="arrival" value="yyyy-MM-ddThh:mm">
+
+        <input type="submit" value="Add Destination">
+    </form>
+
     <% if (flight.destinations.length) { %>
         <table>
             <thead>
                 <tr>
-                    <th>Date</th>
                     <th>Airport</th>
                     <th>Arrival</th>
                 </tr>
             </thead>
             <tbody>
-                <% flight.destinations.forEach(function(d) { %>
-                    <tr>
-                        <td>
-                            <%= d.createdAt.toLocaleDateString() %>
-                        </td>
-                        <td>
-                            <%= d.airport %>
-                        </td>
-                        <td>
-                            <%= d.arrival %>
-                        </td>
-                    </tr>
-                    <% }); %>
+                <% let total = 0 %>
+                    <% flight.destinations.forEach(function(d) { %>
+                        <% total += d.airport %>
+                            <tr>
+                                <td>
+                                    <%= d.airport %>
+                                </td>
+                                <td>
+                                    <%= d.arrival %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td><strong><%= (total / flight.destinations.length).toFixed(1) %></strong></td>
+                                </tr>
             </tbody>
         </table>
         <% } else { %>
             <h5>No Destinations Yet</h5>
             <% } %>
-
-
-                <br><br>
-                <h2>Destinations</h2>
-                <form id="add-destinations-form" method="POST" action="/flights/<%= flight._id %>/destinations">
-                    <label>Airport:</label>
-                    <select name="airport">
-     <option value="AUS">AUS</option>
-     <option value="DFW">DFW</option>
-     <option value="DEN">DEN</option>
-     <option value="LAX">LAX</option>
-     <option value="SAN">SAN</option>
-   </select>
-                    <label>Arrivals:</label>
-                    <input type="datetime-local" name="arrival" value="yyyy-MM-ddThh:mm"></input>
-
-                    <input type="submit" value="Add Destination">
-                </form>
 
                 <%- include('../partials/footer') %>
