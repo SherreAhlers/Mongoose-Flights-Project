@@ -48,18 +48,6 @@ body>nav {
     padding: 0 500px 0 10px;
 }
 
-body>main {
-    grid-area: main;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: right;
-    align-items: center;
-    background-color: #E8ECEB;
-    padding: 20px;
-    overflow-y: scroll;
-}
-
 body>main h1:first-child {
     margin-bottom: 50px;
 }
@@ -132,6 +120,7 @@ table td {
 
 #show-page {
     display: grid;
+    grid-column: 1 / 2;
     grid-template-columns: auto auto;
     grid-gap: 1rem;
     font-weight: bold;
@@ -153,4 +142,9 @@ table td {
     width: 8rem;
     grid-column: 2 / 3;
     margin-bottom: 2rem;
+}
+
+tbody {
+    justify-items: center;
+    align-items: center;
 }
