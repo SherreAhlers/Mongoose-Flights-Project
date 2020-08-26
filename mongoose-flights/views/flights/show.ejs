@@ -25,7 +25,7 @@
         <ul>
             <%- tickets.map(t => 
               `<li>${t.seat} <small>${t.price}</small></li>`
-            )%>
+              ).join('') %>
         </ul>
     </section>
     <form id="add-ticket-to-flight" action="/flights/<%= flight._id %>/tickets" method="POST">
